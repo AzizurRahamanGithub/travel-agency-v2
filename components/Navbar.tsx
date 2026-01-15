@@ -101,12 +101,14 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
       }`}
     >
       <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
-        {/* Logo */}
+        {/* Logo Section with Image */}
         <div className="flex items-center">
-          <button onClick={() => onNavigate('home')} className={`text-2xl font-bold tracking-tight ${isDarkText ? 'text-brand-navy' : 'text-white drop-shadow-md'}`}>
-            Long Vacation
-            <span className="text-brand-green">.</span>
-          </button>
+          <a href="/home">
+              <img
+                src="../images/logonav.png" // Path to your logo image
+                alt="Long Vacation Logo"
+              />
+          </a>
         </div>
 
         {/* Desktop Menu */}

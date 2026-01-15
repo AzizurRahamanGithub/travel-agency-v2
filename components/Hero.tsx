@@ -113,8 +113,8 @@ const Hero: React.FC<HeroProps> = ({ onSearch, onBannerClick }) => {
           </AnimatePresence>
 
           {/* Controls (Hidden on mobile to encourage swipe, visible on desktop) */}
-          <div className="hidden md:block">
-            <FlightControl direction="left" onClick={() => paginate(-1)} />
+          <div className="hidden md:block container">
+            <FlightControl  direction="left" onClick={() => paginate(-1)} />
             <FlightControl direction="right" onClick={() => paginate(1)} />
           </div>
 
@@ -205,7 +205,7 @@ const FlightControl: React.FC<FlightControlProps> = ({ direction, onClick }) => 
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`absolute top-1/2 -translate-y-1/2 z-30 p-2 md:p-4 rounded-full transition-colors group/control focus:outline-none ${
+      className={`absolute top-1/2  -translate-y-1/2 z-30 p-2 md:p-4 rounded-full transition-colors group/control focus:outline-none ${
         isLeft ? 'left-2 md:left-6' : 'right-2 md:right-6'
       }`}
       aria-label={isLeft ? "Previous Slide" : "Next Slide"}
@@ -213,9 +213,9 @@ const FlightControl: React.FC<FlightControlProps> = ({ direction, onClick }) => 
       <div className="relative">
         <motion.div 
             initial={{ opacity: 0, scaleX: 0 }}
-            animate={isFlying ? { opacity: [0, 0.8, 0], scaleX: [0.5, 2, 0.5], x: isLeft ? 50 : -50 } : { opacity: 0, scaleX: 0 }}
+            animate={isFlying ? { opacity: [0, 0.8, 0], scaleX: [0.5, 2, 0.5], x: isLeft ? 30 : -30 } : { opacity: 0, scaleX: 0 }}
             transition={{ duration: 0.3 }}
-            className={`absolute top-1/2 -translate-y-1/2 w-16 h-1 bg-white/60 blur-[1px] rounded-full origin-${isLeft ? 'left' : 'right'} ${isLeft ? 'left-full' : 'right-full'}`}
+            className={`absolute top-1/2 w-[30px] -translate-y-1/2 w-16 h-1 bg-white/60 blur-[1px] rounded-full origin-${isLeft ? 'left' : 'right'} ${isLeft ? 'left-full' : 'right-full'}`}
         />
 
         <motion.div
@@ -248,7 +248,7 @@ const FlightControl: React.FC<FlightControlProps> = ({ direction, onClick }) => 
             }}
         >
             <Plane 
-                size={36} 
+                size={40}
                 strokeWidth={0} 
                 fill="currentColor" 
                 className="drop-shadow-md"
