@@ -13,6 +13,7 @@ import WaveTransition from './components/WaveTransition';
 import { AnimatePresence, motion } from 'framer-motion';
 import { SearchCriteria } from './types';
 import Booking from './components/Booking';
+import MakeBooking from './components/MakeBooking';
 
 // Lazy load heavy components
 const Destinations = React.lazy(() => import('./components/Destinations'));
@@ -26,7 +27,7 @@ const Cruise = React.lazy(() => import('./components/Cruise'));
 const CruisePackageDetails = React.lazy(() => import('./components/CruisePackageDetails'));
 const NewsletterPopup = React.lazy(() => import('./components/NewsletterPopup'));
 
-type ViewState = 'home' | 'destinations' | 'package-details' | 'blogs' | 'blog-details' | 'contact' | 'about' | 'cruises' | 'cruise-details' | 'booking';
+type ViewState = 'home' | 'destinations' | 'package-details' | 'blogs' | 'blog-details' | 'contact' | 'about' | 'cruises' | 'cruise-details' | 'booking' | 'makebooking';
 
 function App() {
   const [currentView, setCurrentView] = useState<ViewState>('home');
@@ -171,7 +172,9 @@ function App() {
               <CruisePackageDetails onNavigateBack={() => navigateTo('cruises')} />
             </Suspense>
           ) : currentView === 'booking' ? (
-            <Booking />
+            <Booking onNavigateMakeBooking={() => navigateTo('makebooking')} />
+          ) : currentView === 'makebooking' ? (
+            <MakeBooking />
           ) : (
             <Suspense fallback={<LoadingScreen />}>
               <PackageDetails 
