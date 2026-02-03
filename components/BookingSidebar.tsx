@@ -28,7 +28,11 @@ const tours: TourCard[] = [
   },
 ]
 
-const BookingSidebar = () => {
+interface BookingSidebarProps {
+  onNavigateMakeBooking: () => void;
+}
+
+const BookingSidebar = ({ onNavigateMakeBooking }: BookingSidebarProps) => {
   return (
     <aside className="w-full space-y-6 sticky top-6">
       {/* PRICE CARD */}
@@ -46,7 +50,10 @@ const BookingSidebar = () => {
             📞 (+65) 9777 0960
           </p>
 
-          <button className="w-full bg-black/95  hover:bg-black/80 text-[#8CC72B] font-bold text-[16px] tracking-wide py-3 rounded-md duration-300 transition">
+          <button 
+            className="w-full bg-black/95  hover:bg-black/80 text-[#8CC72B] font-bold text-[16px] tracking-wide py-3 rounded-md duration-300 transition"
+            onClick={onNavigateMakeBooking}
+          >
             MAKE BOOKING
           </button>
 

@@ -163,8 +163,8 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
 
 
 interface BookingProps {
-    onTripClick?: () => void;
-    searchCriteria?: SearchCriteria | null;
+  onTripClick?: () => void;
+  onNavigateMakeBooking: () => void;
 }
 
 type PriceItemProps = {
@@ -172,14 +172,6 @@ type PriceItemProps = {
   value: string
 }
 
-const PriceItem = ({ label, value }: PriceItemProps) => {
-  return (
-    <div className="flex flex-col gap-2">
-      <p className="text-gray-500">{label}</p>
-      <p className="font-semibold">{value}</p>
-    </div>
-  )
-}
 
 type Tour = {
   id: number
@@ -197,11 +189,9 @@ const tours: Tour[] = [
   { id: 4, date: "Sun, 08 Mar 2026", airline: "CHINA EASTERN", price: 1128, flight:"Mub003", schedule: "Depart 09:00 AM - Arrive 02:00 PM" },
 ]
 
-const Booking: React.FC<BookingProps> = ({ onTripClick, searchCriteria }) => {
-  // --- STATE ---
-  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-  const [isMobileSortOpen, setIsMobileSortOpen] = useState(false);
-  
+const Booking: React.FC<BookingProps> = ({ onNavigateMakeBooking }) => {
+
+
   // Custom Dropdown State
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -389,7 +379,7 @@ const [activeId, setActiveId] = useState<number>(tours[0].id)
             </div>
     {/* right side  */}
             <div className=" col-span-6 md:col-span-3 w-full space-y-4">
-                <BookingSidebar/>
+                <BookingSidebar onNavigateMakeBooking={onNavigateMakeBooking} />
             </div>
         </div>
       </div>
