@@ -3,8 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, Globe, ChevronDown, Check } from 'lucide-react';
 
 interface NavbarProps {
-    currentView: 'home' | 'destinations' | 'blogs' | 'contact' | 'about' | 'cruises';
-    onNavigate: (view: 'home' | 'destinations' | 'blogs' | 'contact' | 'about' | 'cruises') => void;
+    currentView: 'home' | 'destinations' | 'blogs' | 'contact' | 'about' | 'cruises' | 'signin';
+    onNavigate: (view: 'home' | 'destinations' | 'blogs' | 'contact' | 'about' | 'cruises' | 'signin') => void;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
@@ -64,6 +64,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
     { label: 'Blog', action: () => onNavigate('blogs'), isActive: currentView === 'blogs' },
     { label: 'About Us', action: () => onNavigate('about'), isActive: currentView === 'about' },
     { label: 'Contact Us', action: () => onNavigate('contact'), isActive: currentView === 'contact' },
+    { label: 'Signin', action: () => onNavigate('signin'), isActive: currentView === 'signin' },
   ];
 
   const languages = [
