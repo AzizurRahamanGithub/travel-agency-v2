@@ -14,6 +14,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { SearchCriteria } from './types';
 import Booking from './components/Booking';
 import MakeBooking from './components/MakeBooking';
+// import Signin from './components/Signin';
 
 // Lazy load heavy components
 const Destinations = React.lazy(() => import('./components/Destinations'));
@@ -26,8 +27,9 @@ const MoodCloud = React.lazy(() => import('./components/MoodCloud'));
 const Cruise = React.lazy(() => import('./components/Cruise'));
 const CruisePackageDetails = React.lazy(() => import('./components/CruisePackageDetails'));
 const NewsletterPopup = React.lazy(() => import('./components/NewsletterPopup'));
+const Signin = React.lazy(() => import('./components/Signin'));
 
-type ViewState = 'home' | 'destinations' | 'package-details' | 'blogs' | 'blog-details' | 'contact' | 'about' | 'cruises' | 'cruise-details' | 'booking' | 'makebooking';
+type ViewState = 'home' | 'destinations' | 'package-details' | 'blogs' | 'blog-details' | 'contact' | 'about' | 'cruises' | 'cruise-details' | 'booking' | 'makebooking' | 'signin';
 
 function App() {
   const [currentView, setCurrentView] = useState<ViewState>('home');
@@ -94,11 +96,12 @@ function App() {
       </AnimatePresence>
 
       <div className={`antialiased min-h-screen flex flex-col font-sans text-brand-navy ${isLoading ? 'h-screen overflow-hidden' : ''}`}>
-        <Navbar 
-          currentView={getNavbarView()} 
-          onNavigate={navigateTo} 
-        />
-        
+        {currentView !== 'signin' && (
+          <Navbar 
+            currentView={getNavbarView()} 
+            onNavigate={navigateTo} 
+          />
+        )}
         <main className="flex-grow">
           {currentView === 'home' ? (
             <>
@@ -106,21 +109,17 @@ function App() {
                 onSearch={handleSearch} 
                 onBannerClick={() => navigateTo('package-details')}
               />
-              
               <Suspense fallback={<div className="h-[320px] bg-transparent" />}>
                 <MoodCloud /> 
               </Suspense>
-
               <FeaturedTrips 
                 onViewMore={() => navigateTo('destinations')} 
                 onTripClick={() => navigateTo('package-details')}
               />
-
               <FeaturedCruises 
                 onCruiseClick={handleCruiseClick}
                 onViewAll={() => navigateTo('cruises')}
               />
-              
               {/* Dark Gradient Section Wrapper */}
               <div className="relative bg-gradient-to-b from-brand-teal to-brand-navy">
                  <WaveTransition />
@@ -131,7 +130,6 @@ function App() {
                  />
                  {/* TrustBar and Newsletter are now in Footer */}
               </div>
-
             </>
           ) : currentView === 'destinations' ? (
             <Suspense fallback={<LoadingScreen />}>
@@ -171,7 +169,11 @@ function App() {
             <Suspense fallback={<LoadingScreen />}>
               <CruisePackageDetails onNavigateBack={() => navigateTo('cruises')} />
             </Suspense>
-          ) : currentView === 'booking' ? (
+          ) : currentView === 'signin' ? (
+            <Suspense fallback={<LoadingScreen />}>
+              <Signin />
+            </Suspense>
+          ): currentView === 'booking' ? (
             <Booking onNavigateMakeBooking={() => navigateTo('makebooking')} />
           ) : currentView === 'makebooking' ? (
             <MakeBooking />
@@ -184,13 +186,15 @@ function App() {
             </Suspense>
           )}
         </main>
-
-        <Footer onNavigate={navigateTo} />
-        <FloatingWidget />
-        
-        <Suspense fallback={null}>
-            <NewsletterPopup />
-        </Suspense>
+        {currentView !== 'signin' && (
+          <>
+            <Footer onNavigate={navigateTo} />
+            <FloatingWidget />
+            <Suspense fallback={null}>
+              <NewsletterPopup />
+            </Suspense>
+          </>
+        )}
       </div>
     </>
   );
